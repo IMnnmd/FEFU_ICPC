@@ -1,0 +1,51 @@
+def find(s, ch):
+    return [str(i) for i, ltr in enumerate(s) if ltr == ch]
+
+def count_words(s):
+    words = 0
+    new_word = True
+    for i in range(len(s)):
+        if s[i] != ' ' and new_word == True:
+            words += 1
+            new_word = False
+        elif s[i] != ' ' and new_word == False:
+            pass
+        elif s[i] == ' ' and new_word == True:
+            pass
+        else:
+            new_word = True
+    return words
+
+
+with open('input.txt', 'r') as f:
+    arr = f.readlines()
+text = arr[0].strip()
+order = arr[1].strip()
+words = []
+elements_dict = {}
+for element in order:
+    if str(element) in text:
+        elements = find(text, str(element))
+        elements_dict[str(element)] = ' '.join(elements)
+        text = text.replace(str(element), ' ')
+        words.append(count_words(text))
+    else:
+        try:
+            indexes = list(elements_dict[str(element)].split(' '))
+        except KeyError:
+            words.append(words[len(words) - 1])
+            continue
+        text_arr = list(text)
+        for i in indexes:
+            text_arr[int(i)] = str(element)
+        text = ''.join(text_arr)
+        words.append(count_words(text))
+with open('output.txt', 'w') as f:
+    count = 0
+    for elem in words:
+        count += 1
+        f.write(str(elem))
+        if count < len(words):
+            f.write('\n')
+
+
