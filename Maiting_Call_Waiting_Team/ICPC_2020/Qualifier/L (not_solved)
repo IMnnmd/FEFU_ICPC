@@ -1,0 +1,73 @@
+with open('input.txt', 'r') as file:
+    N = int(file.readline().strip())
+    first = [int(i) for i in file.readline().strip().split(' ')]
+    second = [int(i) for i in file.readline().strip().split(' ')]
+
+import math
+first.sort()
+def find_index(val, arr):
+# =============================================================================
+#     print('find_ind', arr, val)
+# =============================================================================
+    max_val = -1
+    start_ind = 0
+    end_ind = len(arr) - 1
+    half = len(arr) // 2
+    current_ind = len(arr) // 2
+    while True:
+# =============================================================================
+#         print(start_ind, end_ind, current_ind, half)
+# =============================================================================
+        if len(arr[start_ind:end_ind]) == 0:
+            res_ind = start_ind
+            break
+        if val > arr[current_ind]:
+            start_ind += half
+            half = math.ceil((end_ind - start_ind) / 2)
+            current_ind = half + current_ind
+        elif val < arr[current_ind]:
+            end_ind -= half
+            half = math.ceil((end_ind - start_ind) / 2)
+            current_ind = current_ind - half
+        else:
+            res_ind = current_ind
+            break
+    return res_ind, arr[res_ind]
+            
+result = None
+# =============================================================================
+# print(first)
+# print(second)
+# =============================================================================
+for s in range(N - 1, -1, -1):
+    was_exchange = False
+    max_ind, max_v = find_index(second[s], first[:s+1])
+# =============================================================================
+#     print(s, second[s], max_ind, first[max_ind])
+# =============================================================================
+    if max_v > second[s]:
+        result = '-1'
+        break
+    temp = first[max_ind]
+    first = first[:max_ind] + first[max_ind + 1:s+1] + [temp] + first[s+1:] 
+# =============================================================================
+#     print(first, temp)
+#     print(second)
+# =============================================================================
+if result:
+    result = result
+else:
+    result = ' '.join([str(i) for i in first])
+
+with open('output.txt', 'w') as file:
+    file.write(result)
+    
+    
+# =============================================================================
+# import random
+# with open('input.txt', 'w') as file:
+#     file.write('10\n')
+#     file.write(' '.join([str(r) for r in random.sample(range(10**9), 10**5)]))
+#     file.write('\n')
+#     file.write(' '.join([str(r) for r in random.sample(range(10**9), 10**5)]))
+# =============================================================================
