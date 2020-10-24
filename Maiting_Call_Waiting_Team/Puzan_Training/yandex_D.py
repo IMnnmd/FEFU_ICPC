@@ -16,7 +16,7 @@ def binary_search(numbers, index):
             right = m - 1
         else:
             return m
-
+#MYASO
 for i in range(r):
     sum = 0
     for k_r in range(k):
