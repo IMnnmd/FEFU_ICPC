@@ -29,7 +29,7 @@ for i in range(r):
         numbas.append(sum)
     else:
         numbas.insert(ind, sum)
-#PIDOR
+"ASDL:KASOKDSA"
 ans = ''
 for i in range(len(numbas)):
     ans += str(numbas[i]) + ' '
