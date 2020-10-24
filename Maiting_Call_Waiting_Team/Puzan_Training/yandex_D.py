@@ -16,7 +16,7 @@ def binary_search(numbers, index):
             right = m - 1
         else:
             return m
-#MYASO
+
 for i in range(r):
     sum = 0
     for k_r in range(k):
@@ -29,7 +29,7 @@ for i in range(r):
         numbas.append(sum)
     else:
         numbas.insert(ind, sum)
-
+#PIDOR
 ans = ''
 for i in range(len(numbas)):
     ans += str(numbas[i]) + ' '
